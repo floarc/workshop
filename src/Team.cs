@@ -12,7 +12,7 @@ namespace MyApplication
     */
     static void Team()
     {
-      Console.WriteLine("Hi Team !");
+      Console.WriteLine("Hi Squad !");
     }
     
     /*
