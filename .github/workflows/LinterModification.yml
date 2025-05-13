@@ -20,8 +20,8 @@ jobs:
           dotnet-version: '8.0.x' # Remplacez par la version souhaitée de .NET
 
       - name: Lister le contenu du répertoire
-          run: ls -al
-
+        run: ls -al
+      
       #- name: Restauration des dépendances
       #  run: dotnet restore
 
