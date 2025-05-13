@@ -25,11 +25,11 @@ jobs:
       - name: Lister le contenu du répertoire
         run: Get-ChildItem .
       
-      #- name: Restauration des dépendances
-      #  run: dotnet restore
+      - name: Restauration des dépendances
+        run: dotnet restore ./src/ConsoleApp/ConsoleApp.csproj
 
-      - name: Build de la solution
-        run: dotnet build --configuration Release
+      #- name: Build de la solution
+      #  run: dotnet build --configuration Release
 
       - name: Analyse statique avec SonarCloud CLI
         uses: SonarSource/sonarcloud-github-action@master
