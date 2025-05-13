@@ -1,0 +1,52 @@
+name: Linter C# et Détection de Modifications
+
+on:
+  push:
+    branches: [ main ] # Exécute l'action lors des push sur la branche main
+  pull_request:
+    branches: [ main ] # Exécute l'action lors des pull requests ciblant la branche main
+  workflow_dispatch: # Permet de déclencher l'action manuellement depuis l'interface GitHub
+
+jobs:
+  linter_csharp_et_detection:
+    runs-on: windows-latest # Utilisation d'un environnement Windows pour .NET
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Installation de .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x' # Remplacez par la version souhaitée de .NET
+
+      - name: Restauration des dépendances
+        run: dotnet restore
+
+      - name: Build de la solution
+        run: dotnet build --configuration Release
+
+      - name: Analyse statique avec SonarCloud CLI
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Vous devrez configurer ce secret dans GitHub
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }} # Facultatif, si votre instance SonarCloud est différente
+
+      - name: Détection des fichiers modifiés
+        id: detect_changes
+        run: |
+          git diff --name-only HEAD^ HEAD > changed_files.txt
+          if [ -s "changed_files.txt" ]; then
+            echo "::set-output name=any_changes::true"
+            cat changed_files.txt
+          else
+            echo "::set-output name=any_changes::false"
+          fi
+
+      - name: Affichage du statut des modifications
+        if: steps.detect_changes.outputs.any_changes == 'true'
+        run: echo "Des fichiers ont été modifiés dans ce commit/pull request."
+
+      - name: Affichage si aucun fichier n'a été modifié
+        if: steps.detect_changes.outputs.any_changes == 'false'
+        run: echo "Aucun fichier n'a été modifié dans ce commit/pull request."
