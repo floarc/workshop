@@ -19,8 +19,8 @@ jobs:
         with:
           dotnet-version: '8.0.x' # Remplacez par la version souhaitée de .NET
 
-      - name: Restauration des dépendances
-        run: dotnet restore
+      #- name: Restauration des dépendances
+      #  run: dotnet restore
 
       - name: Build de la solution
         run: dotnet build --configuration Release
