@@ -1,11 +1,11 @@
 name: Linter C# et Détection de Modifications
 
-on:
-  push:
-    branches: [ main ] # Exécute l'action lors des push sur la branche main
-  pull_request:
-    branches: [ main ] # Exécute l'action lors des pull requests ciblant la branche main
-  workflow_dispatch: # Permet de déclencher l'action manuellement depuis l'interface GitHub
+#on:
+#  push:
+#    branches: [ main ] # Exécute l'action lors des push sur la branche main
+#  pull_request:
+#    branches: [ main ] # Exécute l'action lors des pull requests ciblant la branche main
+#  workflow_dispatch: # Permet de déclencher l'action manuellement depuis l'interface GitHub
 
 jobs:
   linter_csharp_et_detection:
@@ -18,6 +18,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x' # Remplacez par la version souhaitée de .NET
+
+      - name: Lister le contenu du répertoire
+          run: ls -al
 
       #- name: Restauration des dépendances
       #  run: dotnet restore
