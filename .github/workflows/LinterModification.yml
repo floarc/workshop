@@ -19,8 +19,11 @@ jobs:
         with:
           dotnet-version: '8.0.x' # Remplacez par la version souhaitée de .NET
 
+      - name: Afficher le répertoire courant
+        run: pwd
+        
       - name: Lister le contenu du répertoire
-        run: ls -al
+        run: Get-ChildItem .
       
       #- name: Restauration des dépendances
       #  run: dotnet restore
