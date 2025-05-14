@@ -1,4 +1,4 @@
-name: Linter C# et Détection de Modifications
+name: SonarCloud
 
 on:
   push:
