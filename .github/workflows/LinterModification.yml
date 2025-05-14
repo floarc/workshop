@@ -44,12 +44,6 @@ jobs:
         id: detect_changes
         run: |
           git diff --name-only HEAD^ HEAD > changed_files.txt
-          if [ -s "changed_files.txt" ]; then
-            echo "::set-output name=any_changes::true"
-            cat changed_files.txt
-          else
-            echo "::set-output name=any_changes::false"
-          fi
 
       - name: Affichage du statut des modifications
         if: steps.detect_changes.outputs.any_changes == 'true'
