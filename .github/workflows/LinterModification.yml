@@ -39,16 +39,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Vous devrez configurer ce secret dans GitHub
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }} # Facultatif, si votre instance SonarCloud est différente
-
-      - name: Détection des fichiers modifiés
-        id: detect_changes
-        run: |
-          git diff --name-only HEAD^ HEAD > changed_files.txt
-
-      - name: Affichage du statut des modifications
-        if: steps.detect_changes.outputs.any_changes == 'true'
-        run: echo "Des fichiers ont été modifiés dans ce commit/pull request."
-
-      - name: Affichage si aucun fichier n'a été modifié
-        if: steps.detect_changes.outputs.any_changes == 'false'
-        run: echo "Aucun fichier n'a été modifié dans ce commit/pull request."
